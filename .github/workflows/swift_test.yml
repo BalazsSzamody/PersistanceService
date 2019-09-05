@@ -1,0 +1,17 @@
+name: 'First Flow'
+
+on: [pull_request]
+
+jobs:
+  test: 
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/chackout@v1
+    
+    - name: Build test cases
+      run: swift test --generate-linuxmain
+      
+    - name: Run Tests
+      run: swift test
+
