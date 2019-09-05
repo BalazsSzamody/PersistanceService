@@ -9,9 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     
-    - name: Build test cases
-      run: swift test --generate-linuxmain
-      
-    - name: Run Tests
-      run: swift test
+    - name: Build and run tests
+      uses: ./action-test
 
