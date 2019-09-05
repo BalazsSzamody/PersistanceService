@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import PersistanceService
+@testable import FFPersistanceService
 
 let kKeychainKey = "keychainKey"
 
@@ -164,5 +164,25 @@ class PersistableTests: XCTestCase {
         result = try? sutType.get(from: key, on: .userDefaults)
         XCTAssertNil(result)
     }
-
+    
+    func testEmptyArrayDeletesValueOnUserDefaults() throws {
+        var initial: [String] = ["1","2"]
+        let sutType = [String].self
+        try initial.save(at: key, on: .userDefaults)
+        var result: [String]? = try sutType.get(from: key, on: .userDefaults)
+        XCTAssertEqual(result, initial)
+        initial = []
+        try initial.save(at: key, on: .userDefaults)
+        result = try? sutType.get(from: key, on: .userDefaults)
+        XCTAssertNil(result)
+    }
+    
+    func testEmptyValue() {
+        do {
+            _ = try MockKeychainPersistable.get()
+            XCTFail("Should have throw error")
+        } catch {
+            XCTAssertEqual("\(error)", "dataRetrieval(\"Optional(The specified item could not be found in the keychain.)\")")
+        }
+    }
 }

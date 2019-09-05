@@ -62,31 +62,3 @@ extension Persistable {
         try delete(from: key, on: type.persistanceService)
     }
 }
-
-extension Optional where Wrapped: Persistable {
-    enum PersistableError: Error {
-        case nilSave
-        
-        var localizedDescription: String {
-            switch self {
-            case .nilSave:
-                return "`nil` can't be saved. If you want to remove the value use `delete(from)`"
-            }
-        }
-    }
-    
-    func save(at key: String, on type: PersistanceServiceType) throws {
-        guard let wrapped = self else {
-            throw PersistableError.nilSave
-        }
-        try wrapped.save(at: key, on: type)
-    }
-    
-    static func get(from key: String, on type: PersistanceServiceType) throws -> Wrapped? {
-        return try type.persistanceService.get(Wrapped.self, from: key)
-    }
-    
-    static func delete(from key: String, on type: PersistanceServiceType) throws {
-        try type.persistanceService.delete(key)
-    }
-}
