@@ -7,7 +7,7 @@ jobs:
     runs-on: macos-latest
     
     steps:
-    - uses: actions/chackout@v1
+    - uses: actions/checkout@v1
     
     - name: Build test cases
       run: swift test --generate-linuxmain
