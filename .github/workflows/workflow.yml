@@ -1,15 +1,17 @@
-name: New workflow
+name: CI
+
 on: [push]
+
 jobs:
-  macOS:
-    name: Run macOS
+  build:
+
     runs-on: macos-latest
+    
     steps:
-      - name: Checkout
-        uses: actions/checkout@actions
-
-      - name: swift test --generate-linuxmain
-        uses: swift test --generate-linuxmain
-
-      - name: swift test
-        uses: swift test
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
