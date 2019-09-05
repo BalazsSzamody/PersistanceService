@@ -8,3 +8,7 @@ LABEL "com.github.actions.color"="purple"
 LABEL "repository"="http://github.com/BalazsSzamody/PersistanceService"
 LABEL "homepage"="http://github.com/BalazsSzamody"
 LABEL "maintainer"="Balazs <fr3qfly@gmail.com>"
+
+ADD entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
